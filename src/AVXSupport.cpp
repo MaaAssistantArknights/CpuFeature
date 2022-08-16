@@ -5,9 +5,17 @@
 #include <napi.h>
 #include <stdint.h>
 #include <immintrin.h>
+#include <iostream>
+
+#ifdef _MSVC_VER
+#define XCR_XFEATURE_ENABLED_MASK _XCR_XFEATURE_ENABLED_MASK
+#else
+#define XCR_XFEATURE_ENABLED_MASK uint8_t(0)
+#endif
 
 #ifdef _WIN32
 //  Windows
+#include <intrin.h>
 #define cpuid(info, x) __cpuidex(info, x, 0)
 #else
 //  GCC Intrinsics
@@ -18,12 +26,6 @@ void cpuid(int info[4], int InfoType)
 }
 #endif
 
-#ifdef _MSVC_VER
-#define XCR_XFEATURE_ENABLED_MASK _XCR_XFEATURE_ENABLED_MASK
-#else
-#define XCR_XFEATURE_ENABLED_MASK uint8_t(0)
-
-#endif
 
 bool AVXSupport()
 {
