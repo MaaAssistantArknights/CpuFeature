@@ -1,4 +1,30 @@
 {
+  "name": "get-avx-support",
+  "version": "1.0.0",
+  "description": "",
+  "module": "",
+  "scripts": {
+    "build": "node-gyp configure && node-gyp build"
+  },
+  "keywords": [
+    "addon",
+    "cpu feature"
+  ],
+  "engines": {
+    "node": ">= 16"
+  },
+  "author": {
+    "name": "shigure"
+  },
+  "license": "AGPL 3.0",
+  "homepage": "https://github.com/MaaAssistantArknights/GetAVXSupport",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MaaAssistantArknights/GetAVXSupport"
+  },
+  "files": [
+    "build"
+  ],
   "dependencies": {
     "node-addon-api": "^5.0.0",
     "node-gyp": "^9.1.0"

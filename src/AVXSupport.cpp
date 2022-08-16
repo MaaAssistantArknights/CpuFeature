@@ -3,6 +3,7 @@
 // Code from https://stackoverflow.com/a/22521619/922184
 //
 #include <napi.h>
+#include <stdint.h>
 #include <immintrin.h>
 
 #ifdef _WIN32
@@ -20,7 +21,7 @@ void cpuid(int info[4], int InfoType)
 #ifdef _MSVC_VER
 #define XCR_XFEATURE_ENABLED_MASK _XCR_XFEATURE_ENABLED_MASK
 #else
-#define XCR_XFEATURE_ENABLED_MASK uint(0)
+#define XCR_XFEATURE_ENABLED_MASK uint8_t(0)
 
 #endif
 
