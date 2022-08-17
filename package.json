@@ -1,10 +1,15 @@
 {
-  "name": "get-avx-support",
-  "version": "1.0.0",
+  "name": "@maa/cpu-feature",
+  "version": "0.1.0",
   "description": "",
-  "module": "",
+  "main": "./lib/index.js",
+  "typings": "./lib/index.d.ts",
   "scripts": {
-    "build": "node-gyp configure && node-gyp build"
+    "configure": "node-gyp configure",
+    "build": "node-gyp configure build",
+    "rebuild": "node-gyp rebuild",
+    "clean": "node-gyp clean",
+    "build-debug": "node-gyp rebuild --debug"
   },
   "keywords": [
     "addon",
@@ -23,7 +28,8 @@
     "url": "https://github.com/MaaAssistantArknights/GetAVXSupport"
   },
   "files": [
-    "build"
+    "build",
+    "lib"
   ],
   "dependencies": {
     "node-addon-api": "^5.0.0",
