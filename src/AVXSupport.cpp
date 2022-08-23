@@ -7,12 +7,6 @@
 #include <immintrin.h>
 #include <iostream>
 
-#ifdef _MSVC_VER
-#define XCR_XFEATURE_ENABLED_MASK _XCR_XFEATURE_ENABLED_MASK
-#else
-#define XCR_XFEATURE_ENABLED_MASK uint8_t(0)
-#endif
-
 #ifdef _WIN32
 //  Windows
 #include <intrin.h>
@@ -99,30 +93,6 @@ struct x86_features
     bool HW_AVX512_VPCLMUL;
     bool HW_AVX512_BITALG;
 };
-
-bool AVXSupport()
-{
-    bool avxSupported = false;
-
-    int cpuInfo[4];
-    cpuid(cpuInfo, 1);
-
-    bool osUsesXSAVE_XRSTORE = cpuInfo[2] & (1 << 27) || false;
-    bool cpuAVXSuport = cpuInfo[2] & (1 << 28) || false;
-
-    if (osUsesXSAVE_XRSTORE && cpuAVXSuport)
-    {
-        unsigned long long xcrFeatureMask = _xgetbv(XCR_XFEATURE_ENABLED_MASK);
-        avxSupported = (xcrFeatureMask & 0x6) == 0x6;
-    }
-    return avxSupported;
-}
-
-Napi::Value GetAVXSupport(const Napi::CallbackInfo &info)
-{
-    Napi::Env env = info.Env();
-    return Napi::Boolean::New(env, AVXSupport());
-}
 
 struct x86_features DetectFeatures()
 {
@@ -278,7 +248,7 @@ Napi::Object GetFeatures(const Napi::CallbackInfo &info) {
 
 Napi::Object Init(Napi::Env env, Napi::Object exports)
 {
-    exports.Set(Napi::String::New(env, "GetAVXSupport"), Napi::Function::New(env, GetAVXSupport));
+    // exports.Set(Napi::String::New(env, "GetAVXSupport"), Napi::Function::New(env, GetAVXSupport));
     exports.Set("GetFeatures", Napi::Function::New(env, GetFeatures));
     return exports;
 }
